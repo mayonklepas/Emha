@@ -38,107 +38,100 @@ import java.util.Map;
 
 public class Detail_barang_Activity extends AppCompatActivity {
 
-    TextView nama,harga,stock,keterangan;
-    Spinner satuan;
+    TextView nopol,pemilik,alamat,merek,tipe,tahun,warna,bbm,norangka,nobpkb,nomesin,berlaku_stnk,berlaku_pajak,
+    harga_beli,harga_pokok,harga_jual;
+    String snopol,spemilik,salamat,smerek,stipe,stahun,swarna,sbbm,snorangka,snobpkb,snomesin,sberlaku_stnk,sberlaku_pajak,
+            sharga_beli,sharga_pokok,sharga_jual,simage;
     ImageView app_bar_image;
-    Button pesan;
-    EditText jumlahpesan,keterangantambahan;
-    ArrayList<satuanentity> satuanlist=new ArrayList<>();
-    StringBuilder sbmultiharga=new StringBuilder();
+    Button kendaraan,berkas;
     NumberFormat nf=NumberFormat.getInstance();
-    String idsatuanpilih,result;
-    static String statustransaksitop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_barang_);
-        nama=(TextView) findViewById(R.id.nama_barang);
-        stock=(TextView) findViewById(R.id.stock_barang);
-        keterangan=(TextView) findViewById(R.id.keterangan);
-        satuan=(Spinner) findViewById(R.id.satuan);
-        pesan=(Button) findViewById(R.id.pesan);
-        jumlahpesan=(EditText) findViewById(R.id.jumlahpesan);
-        keterangantambahan=(EditText) findViewById(R.id.keterangantambahan);
+        nopol=(TextView) findViewById(R.id.nopol);
+        pemilik=(TextView) findViewById(R.id.pemilik);
+        alamat=(TextView) findViewById(R.id.alamat);
+        merek=(TextView) findViewById(R.id.merek);
+        tipe=(TextView) findViewById(R.id.tipe);
+        tahun=(TextView) findViewById(R.id.tahun);
+        warna=(TextView) findViewById(R.id.warna);
+        bbm=(TextView) findViewById(R.id.bbm);
+        norangka=(TextView) findViewById(R.id.norangka);
+        nobpkb=(TextView) findViewById(R.id.nobpkb);
+        nomesin=(TextView) findViewById(R.id.nomesin);
+        berlaku_stnk=(TextView) findViewById(R.id.berlaku_stnk);
+        berlaku_pajak=(TextView) findViewById(R.id.berlaku_pajak);
+        harga_beli=(TextView) findViewById(R.id.harga_beli);
+        harga_pokok=(TextView) findViewById(R.id.harga_pokok);
+        harga_jual=(TextView) findViewById(R.id.harga_jual);
+
+        kendaraan=(Button) findViewById(R.id.kendaraan);
+        berkas=(Button) findViewById(R.id.berkas);
+
         app_bar_image=(ImageView) findViewById(R.id.app_bar_image);
         Bundle ex=getIntent().getExtras();
-        final String id_barang=ex.getString("id_barang");
-        String nama_barang=ex.getString("nama_barang");
-        String stock_barang=ex.getString("stock");
-        String img_barang=ex.getString("img_barang");
-        final String statustransaksi=ex.getString("statustransaksi");
-        final String idpesanan=String.valueOf(ex.getInt("idpesanan"));
-        nama.setText(nama_barang);
-        stock.setText("Stock : "+stock_barang);
-        if(ex.getInt("jumlahbarang")==0){
-            jumlahpesan.setText("1");
-        }else{
-            jumlahpesan.setText(String.valueOf(ex.getInt("jumlahbarang")));
-        }
+        final String idmobil=ex.getString("idmobil");
+        loaddata(idmobil);
 
-        jumlahpesan.setOnClickListener(new View.OnClickListener() {
+        kendaraan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                jumlahpesan.setText("");
+                Intent i=new Intent(Detail_barang_Activity.this, KelengkapanActivity.class);
+                i.putExtra("idmobil",idmobil);
+                i.putExtra("tipe", "100");
+                startActivity(i);
             }
         });
 
-        keterangantambahan.setText(ex.getString("keterangan"));
-        Glide.with(this).
-                load(img_barang).
-                diskCacheStrategy(DiskCacheStrategy.ALL).
-                crossFade().centerCrop().placeholder(R.drawable.placeholder).
-        into(app_bar_image);
-        loaddata(id_barang);
-        pesan.setOnClickListener(new View.OnClickListener() {
+        berkas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(jumlahpesan.getText().toString().isEmpty()){
-                    Snackbar.make(findViewById(R.id.detaildatabarang), "Pesanan Tidak Boleh Kosong" ,1000*3).show();
-                }else{
-                    if(statustransaksi.equals("insert")){
-                        insertdatabarang(id_barang);
-                    }else{
-                        updatedatabarang(id_barang,idpesanan);
-                    }
-
-                }
-
+                Intent i=new Intent(Detail_barang_Activity.this, KelengkapanActivity.class);
+                i.putExtra("idmobil",idmobil);
+                i.putExtra("tipe", "101");
+                startActivity(i);
             }
         });
+
     }
 
 
-    private void loaddata(final String id_barang){
+    private void loaddata(final String idmobil){
         final ProgressDialog pd=new ProgressDialog(this);
-        pd.setCancelable(true);
+        pd.setCancelable(false);
         pd.setMessage("Memuat Data...");
         pd.show();
         RequestQueue rq= Volley.newRequestQueue(Detail_barang_Activity.this);
-        StringRequest sr=new StringRequest(Request.Method.POST, Config.url+"/getdetailbarang",
+        StringRequest sr=new StringRequest(Request.Method.POST, Config.url+"/kendaraandetail",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         System.out.println(response);
                         try {
-                            JSONObject jo=new JSONObject(response);
-
-                            JSONArray jamultisatuan=jo.getJSONArray("multisatuan");
-                            for (int i = 0; i < jamultisatuan.length(); i++) {
-                                JSONObject joins=jamultisatuan.getJSONObject(i);
-                                satuanlist.add(new satuanentity(joins.getString("IDSATUAN"),joins.getString("KODESATUAN")));
+                            JSONArray ja=new JSONArray(response);
+                            for (int i = 0; i < ja.length() ; i++) {
+                                JSONObject jo=ja.getJSONObject(i);
+                                snopol=jo.getString("NOPOL");
+                                spemilik=jo.getString("NAMAPEMILIK");
+                                salamat=jo.getString("ALAMATPEMILIK");
+                                smerek=jo.getString("MEREK");
+                                stipe=jo.getString("TIPE");
+                                stahun=jo.getString("TAHUN");
+                                swarna=jo.getString("WARNA");
+                                sbbm=jo.getString("NAMABBM");
+                                snorangka=jo.getString("NO_RANGKA");
+                                snobpkb=jo.getString("NO_BPKB");
+                                snomesin=jo.getString("NO_MESIN");
+                                sberlaku_stnk=jo.getString("MASA_BERLAKU_STNK");
+                                sberlaku_pajak=jo.getString("MASA_BERLAKU_PAJAK_STNK");
+                                sharga_beli=nf.format(jo.getDouble("HARGABELI"));
+                                sharga_pokok=nf.format(jo.getDouble("HARGAPOKOK"));
+                                sharga_jual=nf.format(jo.getDouble("HARGAJUAL"));
+                                simage=jo.getString("ID_IMAGE");
                             }
 
-
-                            JSONArray jamultiharga=jo.getJSONArray("multihargajual");
-
-                            for (int i = 0; i < jamultiharga.length(); i++) {
-                                JSONObject joins=jamultiharga.getJSONObject(i);
-                                sbmultiharga.append(joins.getString("QTY")+" = Rp. "+
-                                        nf.format(joins.getDouble("HARGAJUAL"))+" / "+
-                                                joins.getString("SATUAN")+
-                                        "\n");
-                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -155,8 +148,7 @@ public class Detail_barang_Activity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params=new HashMap<String, String>();
-                params.put("idcards",Config.idcard);
-                params.put("idbarang",id_barang);
+                params.put("idmobil",idmobil);
                 return params;
             }
         };
@@ -164,179 +156,31 @@ public class Detail_barang_Activity extends AppCompatActivity {
         rq.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<Object>() {
             @Override
             public void onRequestFinished(Request<Object> request) {
-                ArrayAdapter<satuanentity> satuanadapter=new ArrayAdapter<satuanentity>(Detail_barang_Activity.this,
-                        android.R.layout.simple_spinner_item,satuanlist);
-                satuanadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                satuan.setAdapter(satuanadapter);
-                keterangan.setText(sbmultiharga.toString());
+                nopol.setText(snopol);
+                pemilik.setText(spemilik);
+                alamat.setText(salamat);
+                merek.setText(smerek);
+                tipe.setText(stipe);
+                tahun.setText(stahun);
+                warna.setText(swarna);
+                bbm.setText(sbbm);
+                norangka.setText(snorangka);
+                nobpkb.setText(snobpkb);
+                nomesin.setText(snomesin);
+                berlaku_stnk.setText(sberlaku_stnk);
+                berlaku_pajak.setText(sberlaku_pajak);
+                harga_beli.setText(sharga_beli);
+                harga_pokok.setText(sharga_pokok);
+                harga_jual.setText(sharga_jual);
+                Glide.with(Detail_barang_Activity.this).
+                        load(Config.urlgambar+"/"+simage+".jpg").
+                        diskCacheStrategy(DiskCacheStrategy.ALL).
+                        crossFade().centerCrop().placeholder(R.drawable.placeholder).
+                        into(app_bar_image);
                 pd.dismiss();
             }
         });
 
-
-        satuan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                satuanentity snt=(satuanentity) parent.getSelectedItem();
-                idsatuanpilih=snt.getIdsatuan();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                satuanentity snt=(satuanentity) parent.getSelectedItem();
-                idsatuanpilih=snt.getIdsatuan();
-            }
-        });
     }
 
-    private void insertdatabarang(final String idbarang){
-        final ProgressDialog pd=new ProgressDialog(this);
-        pd.setCancelable(false);
-        pd.setMessage("Memproses Pesanan...");
-        pd.show();
-        RequestQueue rq= Volley.newRequestQueue(Detail_barang_Activity.this);
-        StringRequest sr=new StringRequest(Request.Method.POST, Config.url+"/insertorderpenjualan",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        result=response;
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Detail_barang_Activity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<String, String>();
-                params.put("idcards",Config.idcard);
-                params.put("idbarang", idbarang);
-                params.put("idsatuan", idsatuanpilih);
-                params.put("jumlah", jumlahpesan.getText().toString());
-                params.put("keterangan", keterangantambahan.getText().toString());
-                return params;
-            }
-        };
-        rq.add(sr);
-        rq.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<Object>() {
-            @Override
-            public void onRequestFinished(Request<Object> request) {
-                String inres1="",inres2="";
-                try {
-                    inres1=result.split("--")[0];
-                    inres2=result.split("--")[1];
-                }catch (Exception e){
-                    //Toast.makeText(Detail_barang_Activity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    inres1=result;
-                }
-                if(inres1.equals("berhasil")){
-                    pd.dismiss();
-                    //Snackbar.make(findViewById(R.id.detaildatabarang), "Berhasil" ,1000*2).show();
-                    Toast.makeText(Detail_barang_Activity.this, inres2+" Barang Berhasil Ditambahkan ke Keranjang", Toast.LENGTH_SHORT).show();
-                    onBackPressed();
-                    finish();
-                }else{
-                    pd.dismiss();
-                    Toast.makeText(Detail_barang_Activity.this,result, Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-    }
-
-    private void updatedatabarang(final String idbarang, final String idpesanan){
-        final ProgressDialog pd=new ProgressDialog(this);
-        pd.setMessage("Memproses Pesanan...");
-        pd.setCancelable(false);
-        pd.show();
-        RequestQueue rq= Volley.newRequestQueue(Detail_barang_Activity.this);
-        StringRequest sr=new StringRequest(Request.Method.POST, Config.url+"/editorderpenjualan",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        result=response;
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Detail_barang_Activity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<String, String>();
-                params.put("idpesanan", idpesanan);
-                params.put("idcards",Config.idcard);
-                params.put("idbarang", idbarang);
-                params.put("idsatuan", idsatuanpilih);
-                params.put("jumlah", jumlahpesan.getText().toString());
-                params.put("keterangan", keterangantambahan.getText().toString());
-                return params;
-            }
-        };
-        rq.add(sr);
-        rq.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<Object>() {
-            @Override
-            public void onRequestFinished(Request<Object> request) {
-                if(result.equals("berhasil")){
-                    pd.dismiss();
-                    Toast.makeText(Detail_barang_Activity.this, "Barang Berhasil Dikoreksi", Toast.LENGTH_SHORT).show();
-                    Intent i=new Intent(Detail_barang_Activity.this,MainActivity.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    i.putExtra("ref","cart");
-                    startActivity(i);
-                    finish();
-                }else{
-                    pd.dismiss();
-                    Toast.makeText(Detail_barang_Activity.this,result, Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-    }
-
-
-
-    public class satuanentity{
-        String idsatuan,kodesatuan;
-
-        public satuanentity(String idsatuan, String kodesatuan) {
-            this.idsatuan = idsatuan;
-            this.kodesatuan = kodesatuan;
-        }
-
-        public String getIdsatuan() {
-            return idsatuan;
-        }
-
-        public void setIdsatuan(String idsatuan) {
-            this.idsatuan = idsatuan;
-        }
-
-        public String getKodesatuan() {
-            return kodesatuan;
-        }
-
-        public void setKodesatuan(String kodesatuan) {
-            this.kodesatuan = kodesatuan;
-        }
-
-        @Override
-        public String toString() {
-            return kodesatuan;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if(obj instanceof satuanentity){
-                satuanentity c = (satuanentity) obj;
-                if(c.getKodesatuan().equals(kodesatuan) && c.getIdsatuan()==idsatuan ) return true;
-            }
-
-            return false;
-        }
-    }
 }

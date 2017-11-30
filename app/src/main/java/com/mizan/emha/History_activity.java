@@ -2,6 +2,7 @@ package com.mizan.emha;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,10 +10,15 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -28,6 +34,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,43 +45,34 @@ import java.util.Map;
 
 public class History_activity extends AppCompatActivity {
 
-    SearchView sv;
-    RecyclerView rv;
-    History_adapter adapter;
-    RecyclerView.LayoutManager layman;
+    ImageView imgback;
     ProgressBar pb;
-
-    ArrayList<String> noindex=new ArrayList<>();
-    ArrayList<String> kode=new ArrayList<>();
-    ArrayList<String> nama=new ArrayList<>();
-    ArrayList<Integer> qty=new ArrayList<>();
-    ArrayList<String> satuan=new ArrayList<>();
-    ArrayList<String> img_barang=new ArrayList<>();
-    ArrayList<Double> harga=new ArrayList<>();
+    TableLayout tbl;
+    NumberFormat nf=NumberFormat.getInstance();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-        sv=(SearchView) findViewById(R.id.sv);
         pb=(ProgressBar) findViewById(R.id.pb);
-        rv=(RecyclerView) findViewById(R.id.rv);
-        layman=new LinearLayoutManager(this);
-        rv.setLayoutManager(layman);
-        rv.setHasFixedSize(true);
-        rv.setItemAnimator(new DefaultItemAnimator());
-        adapter=new History_adapter(noindex,kode,nama,qty,satuan,harga,img_barang,this);
-        rv.setAdapter(adapter);
+        tbl=(TableLayout) findViewById(R.id.tbl);
+        imgback=(ImageView) findViewById(R.id.imgback);
         Bundle ex=getIntent().getExtras();
-        loaddata(ex.getString("id_transaksi"));
+        loaddata(ex.getString("idtransaksi"));
+        imgback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
 
-    private void loaddata(final String id_transaksi){
+    private void loaddata(final String idtransaksi){
         pb.setVisibility(View.VISIBLE);
         RequestQueue rq= Volley.newRequestQueue(this);
-        StringRequest sr=new StringRequest(Request.Method.POST, Config.url+"/historyorderdetail",
+        StringRequest sr=new StringRequest(Request.Method.POST, Config.url+"/historitransaksijurnal",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -82,13 +80,27 @@ public class History_activity extends AppCompatActivity {
                             JSONArray ja=new JSONArray(response);
                             for (int i = 0; i < ja.length() ; i++) {
                                 JSONObject jo=ja.getJSONObject(i);
-                                noindex.add(jo.getString("NOINDEX"));
-                                kode.add(jo.getString("KODE"));
-                                nama.add(jo.getString("NAMA"));
-                                qty.add(jo.getInt("QTY"));
-                                satuan.add(jo.getString("SATUAN"));
-                                harga.add(jo.getDouble("HARGA"));
-                                img_barang.add(Config.url+"/barang/"+jo.getString("ID_IMAGE")+".jpg");
+                                TableRow tbr=new TableRow(History_activity.this);
+                                tbr.setWeightSum(0);
+                                tbr.setBackground(getResources().getDrawable(R.drawable.tableline));
+                                TextView akun=new TextView(History_activity.this);
+                                akun.setPadding(5,5,5,5);
+                                akun.setWidth(1);
+                                TableRow.LayoutParams params = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f);
+                                akun.setLayoutParams(params);
+                                TextView debet=new TextView(History_activity.this);
+                                debet.setPadding(5,5,5,5);
+                                debet.setGravity(Gravity.RIGHT);
+                                TextView kredit=new TextView(History_activity.this);
+                                kredit.setPadding(5,5,5,5);
+                                kredit.setGravity(Gravity.RIGHT);
+                                akun.setText(jo.getString("KODEAKUN")+" "+jo.getString("NAMAAKUN"));
+                                debet.setText(nf.format(jo.getDouble("DEBIT")));
+                                kredit.setText(nf.format(jo.getDouble("KREDIT")));
+                                tbr.addView(akun);
+                                tbr.addView(debet);
+                                tbr.addView(kredit);
+                                tbl.addView(tbr, i+1);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -105,7 +117,7 @@ public class History_activity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params=new HashMap<>();
-                params.put("idtransaksi",id_transaksi);
+                params.put("idtransaksi",idtransaksi);
                 return params;
             }
         };
@@ -117,7 +129,6 @@ public class History_activity extends AppCompatActivity {
             @Override
             public void onRequestFinished(Request<Object> request) {
                 pb.setVisibility(View.GONE);
-                adapter.notifyDataSetChanged();
             }
         });
     }

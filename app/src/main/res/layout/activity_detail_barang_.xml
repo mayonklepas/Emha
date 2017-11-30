@@ -34,8 +34,10 @@
                 android:id="@+id/toolbar"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
-                app:title="Detail Item"
-                app:titleTextColor="#ffffff"></android.support.v7.widget.Toolbar>
+                app:title="Detail Kendaraan"
+                app:titleTextColor="#ffffff">
+
+            </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
@@ -48,80 +50,415 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="10dp"
+            android:padding="5dp"
             tools:context="com.mizan.emha.Detail_barang_Activity">
 
-            <TextView
-                android:id="@+id/nama_barang"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="nama"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-
-            <TextView
-                android:id="@+id/stock_barang"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Stock"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/keterangan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="3dp"
-                android:text=""
-                android:textColor="#f47a42"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pilih Satuan"
-                android:textSize="15sp" />
-
-            <Spinner
-                android:id="@+id/satuan"
+            <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"></Spinner>
+                android:layout_height="wrap_content"
+                android:stretchColumns="2">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <TextView
+                        android:text="NO. POLISI"
+                        android:padding="5dp"
+                        />
 
-                <EditText
-                    android:id="@+id/jumlahpesan"
+                    <TextView
+                        android:text=":"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text="NO. POLISI"
+                        android:padding="5dp"
+                        android:id="@+id/nopol"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        />
+
+                </TableRow>
+                <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Jumlah Pesanan"
-                    android:inputType="number" />
-            </android.support.design.widget.TextInputLayout>
+                    android:background="@drawable/tableline">
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <TextView
+                        android:text="PEMILIK"
+                        android:padding="5dp"
+                        />
+                    <TextView
+                        android:text=":"
+                        android:padding="5dp"
+                        />
+                    <TextView
+                        android:text="PEMILIK"
+                        android:padding="5dp"
+                        android:id="@+id/pemilik"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        />
 
-                <EditText
-                    android:id="@+id/keterangantambahan"
+                </TableRow>
+                <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Keterangan Tambahan (Optional)"
-                    android:inputType="textMultiLine" />
-            </android.support.design.widget.TextInputLayout>
+                    android:background="@drawable/tableline">
 
-            <Button
-                android:id="@+id/pesan"
+                    <TextView
+                        android:text="ALAMAT"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text=":"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text="ALAMAT"
+                        android:padding="5dp"
+                        android:id="@+id/alamat"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        />
+
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tableline">
+
+                    <TextView
+                        android:text="MEREK"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text=":"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text="MEREK"
+                        android:padding="5dp"
+                        android:id="@+id/merek"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        />
+
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tableline">
+
+                    <TextView
+                        android:text="TIPE"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text=":"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text="TIPE"
+                        android:padding="5dp"
+                        android:id="@+id/tipe"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        />
+
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tableline">
+
+                    <TextView
+                        android:text="TAHUN"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text=":"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text="TAHUN"
+                        android:padding="5dp"
+                        android:id="@+id/tahun"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        />
+
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tableline">
+
+                    <TextView
+                        android:text="WARNA"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text=":"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text="WARNA"
+                        android:padding="5dp"
+                        android:id="@+id/warna"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        />
+
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tableline">
+
+                    <TextView
+                        android:text="BBM"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text=":"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text="BBM"
+                        android:padding="5dp"
+                        android:id="@+id/bbm"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        />
+
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tableline">
+
+                    <TextView
+                        android:text="NO. RANGKA"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text=":"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text="NO. RANGKA"
+                        android:padding="5dp"
+                        android:id="@+id/norangka"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        />
+
+                </TableRow>
+                <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimary"
-                android:text="Pesan"
-                android:textColor="#ffffff"
-                android:textSize="15sp" />
+                    android:background="@drawable/tableline">
 
+                <TextView
+                    android:text="NO. BPKB"
+                    android:padding="5dp"
+                    />
+
+                    <TextView
+                        android:text=":"
+                        android:padding="5dp"
+                        />
+
+                <TextView
+                    android:text="NO. BPKB"
+                    android:padding="5dp"
+                    android:id="@+id/nobpkb"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    />
+
+            </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tableline">
+
+                    <TextView
+                        android:text="NO. MESIN"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text=":"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text="NO. MESIN"
+                        android:padding="5dp"
+                        android:id="@+id/nomesin"
+                        />
+
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tableline">
+
+                    <TextView
+                        android:text="BERLAKU STNK"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text=":"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text="BERLAKU STNK"
+                        android:padding="5dp"
+                        android:id="@+id/berlaku_stnk"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        />
+
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tableline">
+
+                    <TextView
+                        android:text="BERLAKU PAJAK"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text=":"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text="BERLAKU PAJAK"
+                        android:padding="5dp"
+                        android:id="@+id/berlaku_pajak"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        />
+
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tableline">
+
+                    <TextView
+                        android:text="HARGA BELI"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text=":"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text="HARGA BELI"
+                        android:padding="5dp"
+                        android:id="@+id/harga_beli"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        />
+
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tableline">
+
+                    <TextView
+                        android:text="HARGA POKOK"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text=":"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text="HARGA POKOK"
+                        android:padding="5dp"
+                        android:id="@+id/harga_pokok"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        />
+
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tableline">
+
+                    <TextView
+                        android:text="HARGA JUAL"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text=":"
+                        android:padding="5dp"
+                        />
+
+                    <TextView
+                        android:text="HARGA JUAL"
+                        android:padding="5dp"
+                        android:id="@+id/harga_jual"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        />
+
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*">
+                <TableRow>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Berkas"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:textColor="#fff"
+                        android:id="@+id/berkas"/>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Kendaraan"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:textColor="#fff"
+                        android:id="@+id/kendaraan"/>
+                </TableRow>
+            </TableLayout>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

@@ -31,38 +31,46 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Header_history_adapter extends RecyclerView.Adapter<Header_history_adapter.Holder>{
     ArrayList<String> idtransaksi=new ArrayList<>();
-    ArrayList<String> notransaksi=new ArrayList<>();;
     ArrayList<String> tanggal=new ArrayList<>();
-    ArrayList<String> status=new ArrayList<>();
-    ArrayList<Double> totalorder=new ArrayList<>();
+    ArrayList<String> noref=new ArrayList<>();
+    ArrayList<String> nopol=new ArrayList<>();
+    ArrayList<String> keterangan=new ArrayList<>();
+    ArrayList<String> nama=new ArrayList<>();
+    ArrayList<Double> total=new ArrayList<>();
     Context ct;
     NumberFormat nf=NumberFormat.getInstance();
 
-    public Header_history_adapter(ArrayList<String> idtransaksi, ArrayList<String> notransaksi,
-                                  ArrayList<String> tanggal, ArrayList<String> status,
-                                  ArrayList<Double> totalorder, Context ct) {
+    public Header_history_adapter(ArrayList<String> idtransaksi,
+                                  ArrayList<String> tanggal, ArrayList<String> noref,ArrayList<String> nopol,
+                                  ArrayList<String> keterangan,ArrayList<String> nama,ArrayList<Double> total, Context ct) {
         this.idtransaksi = idtransaksi;
-        this.notransaksi = notransaksi;
         this.tanggal = tanggal;
-        this.status = status;
-        this.totalorder = totalorder;
+        this.noref = noref;
+        this.nopol = nopol;
+        this.keterangan = keterangan;
+        this.nama = nama;
+        this.total = total;
         this.ct = ct;
     }
 
 
     public class Holder extends RecyclerView.ViewHolder{
         public ImageView img_order;
-        public TextView notransaksi;
-        public TextView status;
+        public TextView noref;
+        public TextView nopol;
         public TextView tanggal;
-        public TextView totalorder;
+        public TextView keterangan;
+        public TextView nama;
+        public TextView total;
         public LinearLayout linearbt;
         public Holder(View itemView) {
             super(itemView);
-            notransaksi=(TextView) itemView.findViewById(R.id.notransaksi);
-            status=(TextView) itemView.findViewById(R.id.status);
             tanggal=(TextView) itemView.findViewById(R.id.tanggal);
-            totalorder=(TextView) itemView.findViewById(R.id.totalorder);
+            noref=(TextView) itemView.findViewById(R.id.noref);
+            nopol=(TextView) itemView.findViewById(R.id.nopol);
+            keterangan=(TextView) itemView.findViewById(R.id.keterangan);
+            nama=(TextView) itemView.findViewById(R.id.nama);
+            total=(TextView) itemView.findViewById(R.id.total);
             img_order=(ImageView) itemView.findViewById(R.id.img_order);
             linearbt=(LinearLayout) itemView.findViewById(R.id.linearbt);
         }
@@ -76,7 +84,6 @@ public class Header_history_adapter extends RecyclerView.Adapter<Header_history_
 
     @Override
     public void onBindViewHolder(Holder holder, final int position) {
-        holder.notransaksi.setText(notransaksi.get(position));
         Date dt=null;
         try {
             dt=new SimpleDateFormat("yyyy-MM-dd").parse(tanggal.get(position));
@@ -85,19 +92,16 @@ public class Header_history_adapter extends RecyclerView.Adapter<Header_history_
         }
         String tanggalterformat=new SimpleDateFormat("dd/MM/yyyy").format(dt);
         holder.tanggal.setText(tanggalterformat);
-        if(status.get(position).equals("Proses")){
-            holder.status.setTextColor(Color.parseColor("#f4425c"));
-            holder.status.setText(status.get(position));
-        }else{
-            holder.status.setTextColor(Color.parseColor("#0e8c12"));
-            holder.status.setText(status.get(position));
-        }
-        holder.totalorder.setText("Rp. "+nf.format(totalorder.get(position)));
+        holder.noref.setText(noref.get(position));
+        holder.nopol.setText(nopol.get(position));
+        holder.keterangan.setText(keterangan.get(position));
+        holder.nama.setText(nama.get(position));
+        holder.total.setText("Rp. "+nf.format(total.get(position)));
         holder.linearbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(ct,History_activity.class);
-                i.putExtra("id_transaksi",idtransaksi.get(position));
+                i.putExtra("idtransaksi",idtransaksi.get(position));
                 ct.startActivity(i);
             }
         });

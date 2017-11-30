@@ -34,7 +34,7 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/notransaksi"
+                    android:id="@+id/noref"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="No Transaksi"
@@ -51,17 +51,33 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/status"
+                    android:id="@+id/nopol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:text="status"
-                    android:textColor="#70dd27"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:text="nopol"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/totalorder"
+                    android:id="@+id/keterangan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="keterangan"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/nama"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="nama"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -23,40 +24,51 @@ import java.util.ArrayList;
  */
 
 public class Barang_adapter extends RecyclerView.Adapter<Barang_adapter.Holder>{
-    ArrayList<String> id_barang=new ArrayList<>();
-    ArrayList<String> nama_barang=new ArrayList<>();
-    ArrayList<Double> harga_barang=new ArrayList<>();
-    ArrayList<Integer> stock_barang=new ArrayList<>();
-    ArrayList<String> img_barang=new ArrayList<>();
-    ArrayList<String> satuan=new ArrayList<>();
+    ArrayList<String> id_mobil=new ArrayList<>();
+    ArrayList<String> nopol=new ArrayList<>();
+    ArrayList<String> merk=new ArrayList<>();
+    ArrayList<String> tipe=new ArrayList<>();
+    ArrayList<String> tahun=new ArrayList<>();
+    ArrayList<String> status=new ArrayList<>();
+    ArrayList<String> warna=new ArrayList<>();
+    ArrayList<String> img_mobil=new ArrayList<>();
     Context ct;
     NumberFormat nf=NumberFormat.getInstance();
 
-    public Barang_adapter(ArrayList<String> id_barang, ArrayList<String> nama_barang, ArrayList<Double> harga_barang,
-                          ArrayList<Integer> stock_barang, ArrayList<String> img_barang,ArrayList<String> satuan, Context ct) {
-        this.id_barang = id_barang;
-        this.nama_barang = nama_barang;
-        this.harga_barang = harga_barang;
-        this.stock_barang = stock_barang;
-        this.img_barang = img_barang;
-        this.satuan=satuan;
+    public Barang_adapter(ArrayList<String> id_mobil, ArrayList<String> nopol, ArrayList<String> merk,
+                          ArrayList<String> tipe, ArrayList<String> tahun,ArrayList<String> status,
+                          ArrayList<String> warna,ArrayList<String> img_mobil, Context ct) {
+        this.id_mobil = id_mobil;
+        this.nopol = nopol;
+        this.merk = merk;
+        this.tipe = tipe;
+        this.tahun = tahun;
+        this.status=status;
+        this.warna=warna;
+        this.img_mobil=img_mobil;
         this.ct = ct;
     }
 
     public class Holder extends RecyclerView.ViewHolder{
         Typeface tp=Typeface.createFromAsset(ct.getAssets(),Config.fontname);
-        public ImageView img_barang;
-        public TextView nama_barang;
-        public TextView harga_barang;
-        public TextView stock_barang;
+        public ImageView img_mobil;
+        public TextView tipe;
+        public TextView nopol;
+        public TextView merk;
+        public TextView tahun;
+        public TextView warna;
+        public TextView status;
         public Button detail;
         LinearLayout ll;
         public Holder(View itemView) {
             super(itemView);
-            img_barang=(ImageView) itemView.findViewById(R.id.img_barang);
-            nama_barang=(TextView) itemView.findViewById(R.id.nama_barang);
-            harga_barang=(TextView) itemView.findViewById(R.id.harga_barang);
-            stock_barang=(TextView) itemView.findViewById(R.id.stock_barang);
+            img_mobil=(ImageView) itemView.findViewById(R.id.img_mobil);
+            tipe=(TextView) itemView.findViewById(R.id.tipe);
+            nopol=(TextView) itemView.findViewById(R.id.nopol);
+            merk=(TextView) itemView.findViewById(R.id.merk);
+            tahun=(TextView) itemView.findViewById(R.id.tahun);
+            status=(TextView) itemView.findViewById(R.id.status);
+            warna=(TextView) itemView.findViewById(R.id.warna);
             //detail=(Button) itemView.findViewById(R.id.detail);
             ll=(LinearLayout) itemView.findViewById(R.id.ll);
         }
@@ -70,15 +82,17 @@ public class Barang_adapter extends RecyclerView.Adapter<Barang_adapter.Holder>{
 
     @Override
     public void onBindViewHolder(Holder holder, final int position) {
-        holder.nama_barang.setText(nama_barang.get(position));
-        holder.harga_barang.setText("Rp. "+nf.format(harga_barang.get(position)));
-        holder.stock_barang.setText("Stock : "+String.valueOf(stock_barang.get(position))+" "+satuan.get(position));
+        holder.tipe.setText(tipe.get(position));
+        holder.nopol.setText(nopol.get(position));
+        holder.merk.setText(merk.get(position));
+        holder.tahun.setText(tahun.get(position));
+        holder.status.setText(status.get(position));
         Glide.with(ct).
-                load(img_barang.get(position)).
+                load(img_mobil.get(position)).
                 diskCacheStrategy(DiskCacheStrategy.ALL).
                 crossFade().placeholder(R.drawable.placeholder).
-                centerCrop().into(holder.img_barang);
-        holder.img_barang.setOnClickListener(new View.OnClickListener() {
+                centerCrop().into(holder.img_mobil);
+        holder.img_mobil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -88,11 +102,7 @@ public class Barang_adapter extends RecyclerView.Adapter<Barang_adapter.Holder>{
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(ct,Detail_barang_Activity.class);
-                i.putExtra("id_barang",id_barang.get(position));
-                i.putExtra("nama_barang",nama_barang.get(position));
-                i.putExtra("stock",String.valueOf(stock_barang.get(position)));
-                i.putExtra("img_barang",img_barang.get(position));
-                i.putExtra("statustransaksi","insert");
+                i.putExtra("idmobil",id_mobil.get(position));
                 ct.startActivity(i);
             }
         });
@@ -101,7 +111,7 @@ public class Barang_adapter extends RecyclerView.Adapter<Barang_adapter.Holder>{
 
     @Override
     public int getItemCount() {
-        return id_barang.size();
+        return id_mobil.size();
     }
 
 

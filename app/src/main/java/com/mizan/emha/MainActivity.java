@@ -22,22 +22,10 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         tb=(Toolbar) findViewById(R.id.tb);
-        Bundle ex=getIntent().getExtras();
-        String ref="";
-        try {
-            ref=ex.getString("ref");
-        }catch (Exception e){
-            ref="";
-        }
-        if(ref.equals("cart")){
-            getFragmentManager().beginTransaction().replace(R.id.content,new Chart_fragment()).commit();
-            navigation.setSelectedItemId(R.id.navigation_chart);
-            tb.setTitle("Daftar Keranjang");
-        }else{
-            getFragmentManager().beginTransaction().replace(R.id.content,new Home_fragment()).commit();
-            navigation.setSelectedItemId(R.id.navigation_home);
-            tb.setTitle("PT Rania Jaya Farmarindo");
-        }
+        getFragmentManager().beginTransaction().replace(R.id.content,new Barang_fragment()).commit();
+        navigation.setSelectedItemId(R.id.navigation_home);
+        tb.setTitle("EMHA MOTOR");
+
     }
 
     @Override
@@ -68,16 +56,8 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    getFragmentManager().beginTransaction().replace(R.id.content,new Home_fragment()).commit();
-                    tb.setTitle("PT Rania Jaya Farmarindo");
-                    return true;
-                case R.id.navigation_barang:
                     getFragmentManager().beginTransaction().replace(R.id.content,new Barang_fragment()).commit();
-                    tb.setTitle("Daftar Barang");
-                    return true;
-                case R.id.navigation_chart:
-                    getFragmentManager().beginTransaction().replace(R.id.content,new Chart_fragment()).commit();
-                    tb.setTitle("Daftar Keranjang");
+                    tb.setTitle("EMHA MOTOR");
                     return true;
                 case R.id.navigation_history:
                     getFragmentManager().beginTransaction().replace(R.id.content,new Header_history_fragment()).commit();

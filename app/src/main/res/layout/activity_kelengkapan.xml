@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,45 +33,35 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Jurnal Transaksi"
+            android:text="Kelengkapan"
             android:textColor="#fff"
             android:textSize="21dp"
             />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_note_add_black_48dp"
+            android:tint="#fff"
+            android:layout_gravity="right"
+            android:layout_marginRight="0dp"
+            android:padding="7dp"
+            style="@style/DefaultButton"
+            android:id="@+id/imgtambah"
+            />
+
     </android.support.v7.widget.Toolbar>
 
-    <ScrollView
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="true">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:stretchColumns="*"
-                android:id="@+id/tbl"
-                android:padding="5dp">
-                <TableRow android:background="@drawable/tableline">
-                    <TextView android:text="AKUN" android:textStyle="bold"/>
-                    <TextView android:text="DEBIT"
-                        android:textStyle="bold"
-                        android:gravity="right"/>
-                    <TextView android:text="KREDIT"
-                        android:textStyle="bold"
-                        android:gravity="right"/>
-                </TableRow>
-
-            </TableLayout>
-        </LinearLayout>
-
-    </ScrollView>
-
-
+        app:reverseLayout="true"/>
     <ProgressBar
         android:id="@+id/pb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
-
 </LinearLayout>

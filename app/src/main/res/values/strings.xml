@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">PT Rania Jaya Farmarindo</string>
+    <string name="app_name">EMHA MOTOR</string>
     <string name="title_home">Home</string>
     <string name="title_barang">Barang</string>
-    <string name="title_history">Histori Pemesanan</string>
+    <string name="title_history">Histori Transaksi</string>
     <string name="title_chart">Keranjang</string>
     <string name="title_profile">Profile</string>
 

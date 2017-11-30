@@ -3,6 +3,21 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0"
+        android:paddingTop="0dp">
+        <TableRow>
+            <Button
+                android:id="@+id/filter"
+                android:text="Filter"
+                android:backgroundTint="@color/colorPrimary"
+                android:textSize="17sp"
+                android:textColor="#fff"/>
+        </TableRow>
+    </TableLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"

@@ -44,7 +44,6 @@ public class Chart_fragment extends Fragment {
     Chart_adapter cadapter;
     RecyclerView.LayoutManager layman;
     ProgressBar pb;
-
     ArrayList<Integer> nopesanan=new ArrayList<>();
     ArrayList<String> id_barang=new ArrayList<>();
     ArrayList<String> nama_barang=new ArrayList<>();

@@ -25,7 +25,8 @@
         <activity android:name=".Detail_barang_Activity" />
         <activity android:name=".History_activity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".Detailbarang2Activity"></activity>
+        <activity android:name=".KelengkapanActivity" />
+        <activity android:name=".UploadActivity"></activity>
     </application>
 
 </manifest>
